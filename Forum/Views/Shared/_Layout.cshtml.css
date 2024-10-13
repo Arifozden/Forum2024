@@ -1,0 +1,45 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+a {
+  color: lightblue;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: lightblue;
+  border-color:lightblue;
+}
+
+
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem lightblue);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #333; /* Footer arka plan rengi */
+    color: lightblue; /* Footer metin rengi */
+    padding: 10px; /* İstenilen iç boşluk miktarı */
+    text-align: center;
+}

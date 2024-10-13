@@ -1,0 +1,63 @@
+﻿@model Forum.Models.Question
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+    
+
+<h3>@Model.Title</h3>
+<p>@Model.Description</p>
+<h6>@Model.Category</h6>
+<p>- @Model.User.UserName</p>
+
+<h4>All Answers:</h4>
+@foreach (var answer in Model.Answers)
+{
+    if (answer != null && answer.User != null)
+    {
+        <p>@answer.Content - @answer.User.UserName</p>
+        <hr />
+    }
+}
+ 
+<hr/>
+<h5>Add an answer</h5>
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    <form asp-action="AddAnswer">
+        <div class="form-group">
+            <textarea name="Content" class="form-control"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="hidden" name="IdentityUserId" class="form-control" value="@UserManager.GetUserId(User)"/>
+        </div>
+        <div class="form-group">
+            <input type="hidden" name="QuestionId" class="form-control" value="@Model.Id" />
+        </div>
+        <br/>
+        <div class="form-group">
+            <input type="submit" class="btn btn-outline-info" value="Submit" />
+
+        </div>
+    </form>
+}
+else
+{
+    <span style="color: red">Not authenticated. Please log in to submit an answer.</span><br/>
+    <a class="btn btn-secondary" asp-area="Identity" asp-page="/Account/Login">Login</a>
+}
+<br/>
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-action="Edit" class="btn btn-outline-primary" asp-route-id="@Model.Id">Update</a>
+    <a asp-action="Delete" class="btn btn-outline-danger" asp-route-id="@Model.Id">Delete</a>
+    <a asp-action="Index" class="btn btn-outline-primary">Back to List</a>
+}

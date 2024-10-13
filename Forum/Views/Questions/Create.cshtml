@@ -1,0 +1,56 @@
+﻿@model Forum.Models.Question
+@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Ask a Question here!</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <select asp-for="Category" class="form-control">
+                    <option value="Technology">Technology</option>
+                    <option value="Coding">Coding</option>
+                    <option value="Cyber Security">Cyber Security</option>
+                </select>
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                
+                <input type="hidden" asp-for="IdentityUserId" class="form-control" value="@UserManager.GetUserId(User)" />
+            </div>
+            <br/>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-outline-primary" />
+                <a asp-action="Index" class="btn btn-outline-danger">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

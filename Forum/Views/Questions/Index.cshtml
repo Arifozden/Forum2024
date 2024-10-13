@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Forum.Models.Question>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 id="pageTitle" style="text-align: center; padding-bottom: 10px">IT-Future Forums</h1>
+<div class="container" >
+    <div class="row mt-4" style="justify-content: center;">
+    <div class="col-md-4">
+        <form action="/questions/list" method="get" class="form-inline">
+            <div style="float: left; margin: auto" class="col-md-6"><input type="text" name="l" placeholder="Search in questions..." class="form-control mr-2" /></div>
+            <div style="float: left; margin-left: 3%" class="col-md-2"><button type="submit" class="btn btn-outline-dark mr-0">Search</button></div>
+        </form>
+    </div>
+    
+    <div class="col-md-4">
+        <form asp-controller="Questions" asp-action="Filter" method="get">
+            <input type="hidden" name="d" placeholder="Arama terimi">
+            <div style="float: left">
+                <select name="category">
+                    <option value="">All Categories</option>
+                    <option value="Technology">Technology</option>
+                    <option value="Coding">Coding</option>
+                    <option value="Cyber Security">Cyber Security</option>
+                </select>
+            </div>
+                <div style="margin-left: 3%; float: left"><button type="submit" class="btn btn-outline-primary">Filter by Category</button></div>
+        </form>
+    </div>
+</div>
+</div>
+<hr/>
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        <a asp-action="Create" class="btn btn-outline-primary">Create New</a>
+    </p>
+}
+
+@foreach (var item in Model) {
+    
+    <h4>@item.Title</h4>
+    <p>@item.Description</p>
+    <h6>Posted by : <span class="badge bg-success" style="font-style: italic; font-weight: bold;">@item.User.UserName</span></h6>
+    <h6>Question Category : <span class="badge bg-info" style="font-style: italic; font-weight: bold;">@item.Category</span></h6>
+    <h6>Total answers: <span class="badge bg-warning" style="font-style: italic; font-weight: bold;">@item.Answers.Count</span></h6>
+                
+                <a asp-action="Details" class="btn btn-outline-info" asp-route-id="@item.Id">Details</a>
+                
+}
+<br/>
+<div style="padding-top: 10px"><a href="#pageTitle" class="btn btn-outline-success">Back To Top</a></div>
+<br/>
+<br/>
